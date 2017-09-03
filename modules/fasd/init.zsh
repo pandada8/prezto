@@ -26,7 +26,7 @@ if [[ "${commands[fasd]}" -nt "$cache_file" || ! -s "$cache_file"  ]]; then
 
   # Set fasd completion init arguments, if applicable.
   if zstyle -t ':prezto:module:completion' loaded; then
-    init_args+=(zsh-ccomp zsh-ccomp-install zsh-wcomp zsh-wcomp-install)
+    init_args+=(posix-alias zsh-ccomp zsh-ccomp-install zsh-wcomp zsh-wcomp-install)
   fi
 
   # Cache init code.
@@ -36,19 +36,3 @@ fi
 source "$cache_file"
 
 unset cache_file init_args
-
-function fasd_cd {
-  local fasd_ret="$(fasd -d "$@")"
-  if [[ -d "$fasd_ret" ]]; then
-    cd "$fasd_ret"
-  else
-    print "$fasd_ret"
-  fi
-}
-
-#
-# Aliases
-#
-
-# Changes the current working directory interactively.
-alias j='fasd_cd -i'
